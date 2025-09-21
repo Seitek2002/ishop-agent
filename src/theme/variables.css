@@ -1,0 +1,85 @@
+/* Ionic Theme Variables - iShop palette (purple) */
+:root {
+  /* Primary (purple) */
+  --ion-color-primary: #854C9D;
+  --ion-color-primary-rgb: 133, 76, 157;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #74408b;
+  --ion-color-primary-tint: #9364ab;
+
+  /* Secondary (accent purple) */
+  --ion-color-secondary: #9b4cff;
+  --ion-color-secondary-rgb: 155, 76, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #8742e0;
+  --ion-color-secondary-tint: #a65eff;
+
+  /* Success (green) - used in earn-percent */
+  --ion-color-success: #1cbe93;
+  --ion-color-success-rgb: 28, 190, 147;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #19a57f;
+  --ion-color-success-tint: #33c69e;
+
+  /* Medium / muted text */
+  --ion-color-medium: #7b7f88;
+  --ion-color-medium-rgb: 123, 127, 136;
+
+  /* Danger (default red) */
+  --ion-color-danger: #ff3b30;
+  --ion-color-danger-rgb: 255, 59, 48;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #e0352b;
+  --ion-color-danger-tint: #ff544a;
+
+  /* Background and text */
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: #0f1222;
+  --ion-text-color-rgb: 15, 18, 34;
+
+  /* Brand gradient used for primary CTAs */
+  --brand-gradient: var(--ion-color-primary);
+}
+
+
+/* Map tokens to Ionic color classes (ensures full compatibility) */
+.ion-color-primary {
+  --ion-color-base: var(--ion-color-primary);
+  --ion-color-base-rgb: var(--ion-color-primary-rgb);
+  --ion-color-contrast: var(--ion-color-primary-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-primary-contrast-rgb);
+  --ion-color-shade: var(--ion-color-primary-shade);
+  --ion-color-tint: var(--ion-color-primary-tint);
+}
+
+.ion-color-secondary {
+  --ion-color-base: var(--ion-color-secondary);
+  --ion-color-base-rgb: var(--ion-color-secondary-rgb);
+  --ion-color-contrast: var(--ion-color-secondary-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-secondary-contrast-rgb);
+  --ion-color-shade: var(--ion-color-secondary-shade);
+  --ion-color-tint: var(--ion-color-secondary-tint);
+}
+
+.ion-color-success {
+  --ion-color-base: var(--ion-color-success);
+  --ion-color-base-rgb: var(--ion-color-success-rgb);
+  --ion-color-contrast: var(--ion-color-success-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-success-contrast-rgb);
+  --ion-color-shade: var(--ion-color-success-shade);
+  --ion-color-tint: var(--ion-color-success-tint);
+}
+
+.ion-color-danger {
+  --ion-color-base: var(--ion-color-danger);
+  --ion-color-base-rgb: var(--ion-color-danger-rgb);
+  --ion-color-contrast: var(--ion-color-danger-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-danger-contrast-rgb);
+  --ion-color-shade: var(--ion-color-danger-shade);
+  --ion-color-tint: var(--ion-color-danger-tint);
+}

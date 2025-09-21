@@ -1,0 +1,132 @@
+.profile {
+  &-page {
+    padding: 16px;
+    margin-top: 24px;
+    overflow: auto;
+  }
+  &-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-avatar {
+    margin-bottom: 16px;
+    width: 100px;
+    height: 100px;
+    img {
+      border-radius: 12px;
+    }
+  }
+
+  &-edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+  }
+
+  &-name {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  &-status {
+    position: relative;
+    padding-left: 16px;
+    font-size: 12px;
+    &.approved {
+      color: #1cbe93;
+      &:before {
+        background-color: #1cbe93;
+      }
+    }
+    &.pending {
+      color: #0072de;
+      &:before {
+        background-color: #0072de;
+      }
+    }
+    &.not_submitted {
+      color: #ff4d4f;
+      &:before {
+        background-color: #ff4d4f;
+      }
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      z-index: -1;
+    }
+  }
+  // actions
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 48px;
+  }
+
+  &-action {
+    display: flex;
+    align-items: center;
+
+    &--referral {
+      text-decoration: none;
+    }
+
+    &__content {
+      margin-left: 16px;
+    }
+
+    &__icon {
+      width: 40px;
+      font-size: 40px;
+    }
+
+    &__title {
+      font-size: 16px;
+      font-weight: 400;
+      color: #171717;
+      &--blue {
+        color: #0072de;
+      }
+    }
+
+    &__subtitle {
+      color: #7b7f88;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    &__arrow {
+      margin-left: auto;
+      color: #7b7f88;
+    }
+  }
+  // contacts
+  &-contacts {
+    padding: 16px 20px;
+    background: #f2f5ff;
+    border-radius: 16px;
+    h2 {
+      font-size: 20px;
+      font-weight: normal;
+      padding-bottom: 8px;
+    }
+    p {
+      font-size: 14px;
+      font-weight: normal;
+      padding-top: 0;
+    }
+  }
+}

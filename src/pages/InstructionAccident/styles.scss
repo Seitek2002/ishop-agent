@@ -1,0 +1,139 @@
+.instructions-page {
+  padding: 16px 20px;
+  overflow: auto;
+
+  .instructions-header {
+    display: flex;
+    align-items: center;
+    padding: 24px 0 16px 0;
+    justify-content: center;
+    position: relative;
+
+    .instructions-back {
+      position: absolute;
+      left: 16px;
+      font-size: 26px;
+      color: #222;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    .instructions-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #222;
+    }
+  }
+
+  .instructions-segment {
+    background: #f5f5f5;
+    border-radius: 12px;
+    ion-label {
+      margin: 8px;
+    }
+    ion-segment-button {
+      min-height: 38px;
+      font-size: 16px;
+      color: #171717;
+      font-weight: 400;
+      text-transform: none;
+    }
+    & .segment-button-checked {
+      margin: 4px;
+      --indicator-color: transparent;
+      border-radius: 8px;
+      background: #7b7f88;
+      border-bottom: none;
+      color: #ffffff;
+    }
+  }
+
+  .instructions-card {
+    background-color: #f5f5f5;
+    border-radius: 16px;
+    margin-top: 12px;
+    padding: 20px;
+    box-shadow: none;
+
+    .instructions-list {
+      ion-accordion {
+        background: transparent;
+        .instructions-item {
+          --padding-start: 0px;
+          --padding-end: 0px;
+          --background: #f5f5f5;
+
+          .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 12px 0;
+
+            .item-title {
+              font-size: 16px;
+              font-weight: 600;
+              margin-right: 8px;
+            }
+          }
+        }
+
+        .item-content {
+          margin: 0;
+          font-size: 14px;
+          color: #171717;
+        }
+      }
+
+      hr {
+        margin: 0;
+        border: none;
+        border-top: 1px solid #a3a3a3;
+      }
+    }
+  }
+
+  .call-block {
+    background-color: #f2f5ff;
+    margin-top: 12px;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+
+    .call-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+
+      .info-icon {
+        font-size: 24px;
+        color: #0072de;
+      }
+
+      .call-texts p {
+        text-align: left;
+      }
+
+      .call-text {
+        font-size: 16px;
+        color: #171717;
+        margin: 0;
+      }
+    }
+
+    .call-button {
+      --border-radius: 12px;
+      --background: #0072de;
+      --box-shadow: none;
+      border-radius: 12px;
+      background: #0072de;
+      text-transform: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 8px 16px;
+      margin-top: 10px;
+    }
+  }
+}

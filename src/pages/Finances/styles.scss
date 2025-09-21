@@ -1,0 +1,29 @@
+.finances-page {
+  padding: 16px;
+  overflow: auto;
+  .finance-card.incomeCard {
+    border-radius: 12px;
+    background: #0072de;
+    color: white;
+    .finance-card-subtitle {
+      font-size: 20px;
+    }
+    .finance-card-title {
+      font-size: 36px;
+    }
+    .finance-button {
+      color: #0072de;
+      background: white;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+  }
+
+  .finance-history {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}

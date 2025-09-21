@@ -1,0 +1,7 @@
+{
+  "name": "oa.kg",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

@@ -1,0 +1,136 @@
+.osago-page {
+  padding: 16px;
+  background: #f6f8fa;
+  overflow: auto;
+}
+
+.search-bar {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(56, 128, 255, 0.04);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  margin-bottom: 10px;
+  height: 48px;
+  border: 1.5px solid #171717;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  .search-icon {
+    font-size: 22px;
+    color: #222;
+    margin-right: 8px;
+  }
+}
+
+.search-icon {
+  font-size: 22px;
+  color: #222;
+  margin-right: 8px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  flex: 1;
+}
+
+.policy-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(56, 128, 255, 0.08);
+  padding: 20px 18px 16px 18px;
+  margin-bottom: 32px;
+}
+
+.policy-name {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.policy-number {
+  color: #b0b0b0;
+  font-size: 14px;
+  margin: 12px 0;
+}
+
+.policy-info {
+  color: #888;
+  font-size: 15px;
+  margin: 12px 0;
+
+  .label {
+    font-weight: 500;
+  }
+  .until {
+    color: #000;
+    font-weight: 400;
+  }
+}
+
+.policy-status {
+  font-size: 15px;
+  margin-bottom: 14px;
+
+  .active {
+    color: #1abc9c;
+    font-weight: 600;
+  }
+
+  .until {
+    color: #000;
+    font-weight: 400;
+  }
+}
+
+.policy-buttons {
+  display: flex;
+  gap: 12px;
+
+  .policy-btn {
+    flex: 1;
+    font-weight: 500;
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+    --border-radius: 12px;
+  }
+}
+
+.bottom-button-wrapper {
+  position: sticky;
+  bottom: -16px;
+  left: 0;
+  right: 0;
+  background: #f9f9fa;
+  z-index: 10;
+  margin-bottom: 20px;
+
+  img {
+    margin: 0 8px;
+  }
+}
+
+.osago-page {
+  .create-osago-btn {
+    font-weight: 500;
+    font-size: 16px;
+    --background: #0072de;
+    --border-radius: 12px;
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+  }
+
+  .commission-info {
+    color: #1cbe93;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 2px;
+  }
+}

@@ -1,0 +1,126 @@
+.header {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+}
+
+.header + .ion-page {
+  top: 60px;
+}
+
+.header.ios {
+  box-shadow: 0px 8px 22px -6px #18274b1f;
+}
+
+.primary-btn {
+  --background: var(--brand-gradient);
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --border-radius: 12px;
+}
+
+.green-btn {
+  --background: var(--ion-color-success);
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --border-radius: 12px;
+}
+
+.green-btn:hover {
+  --background: var(--ion-color-success);
+}
+
+.earn-percent {
+  color: var(--ion-color-success);
+  text-align: center;
+  margin-top: 2px;
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.earn-percent-2 {
+  color: var(--ion-color-success);
+  text-align: center;
+  margin-top: 8px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.outlined-btn {
+  --background: transparent;
+  --border-color: var(--ion-color-primary);
+  --border-width: 1px;
+  --color: var(--ion-color-primary);
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --border-radius: 12px;
+}
+
+/* Force light theme across the entire app */
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #ffffff;
+}
+
+/* Ensure Ionic containers are light */
+ion-app,
+ion-content,
+.ion-content,
+ion-page,
+.ion-page {
+  --ion-background-color: #ffffff;
+  --background: #ffffff;
+  background: #ffffff !important;
+  color: var(--ion-text-color);
+}
+
+/* Headers/Toolbars/Tab bars stay light */
+ion-toolbar,
+ion-header,
+ion-tab-bar {
+  --background: #ffffff;
+}
+
+/* Tab bar theming and elevation */
+ion-tab-bar {
+  --color: #7b7f88; /* inactive */
+  --color-selected: var(--ion-color-primary); /* active */
+  box-shadow: 0 -4px 16px rgba(24, 39, 75, 0.08);
+}
+
+/* Link color matches brand */
+a {
+  color: var(--ion-color-primary);
+}
+
+/* Ensure inputs/lists use light surfaces */
+ion-item,
+ion-list,
+ion-input,
+ion-select,
+ion-textarea {
+  --background: #ffffff;
+  background: #ffffff;
+}
+
+/* Header layout: logo + brand on the left, language toggle on the right */
+.header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header .brand {
+  font-weight: 600;
+  color: var(--ion-text-color);
+}
+
+.header .lang-toggle {
+  color: var(--ion-text-color);
+}

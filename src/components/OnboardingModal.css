@@ -1,0 +1,87 @@
+.onboarding-checkbox {
+  flex: none;
+  color: #7B7F88;
+}
+
+.onboarding-modal .ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.onboarding-form {
+  width: 100%;
+}
+
+.onboarding-form .onboarding-title {
+  font-size: 24px;
+}
+
+.onboarding-phoneNumber span {
+  font-size: 16px;
+}
+
+.onboarding-subtitle {
+  text-align: center;
+}
+
+.onboarding-phoneNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: #171717 1px solid;
+  padding: 0 16px;
+  border-radius: 12px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  margin: 0 auto;
+}
+
+.onboarding-sms {
+  text-align: left;
+}
+
+.onboarding-modal .swiper {
+  width: 100%;
+}
+
+.onboarding-modal .swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  min-height: 400px;
+}
+
+.onboarding-modal h2 {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 24px 0 8px 0;
+}
+
+.onboarding-modal p {
+  margin: 0 0 8px 0;
+}
+
+.onboarding-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cfd8dc;
+  display: inline-block;
+  transition: background 0.2s, opacity 0.2s;
+  opacity: 0.5;
+}
+
+.onboarding-dot.active {
+  background: #3880ff;
+  opacity: 1;
+}
+
+.onboarding-modal ion-button {
+  margin-top: 16px;
+}
