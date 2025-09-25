@@ -8,14 +8,14 @@ export const api = createApi({
   endpoints: (builder) => ({
     getPageTexts: builder.query<PageTextsResponse, void>({
       query: () => ({
-        url: 'https://oa.kg/api/page-texts/',
+        url: '/api/page-texts/',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
     sendSms: builder.mutation<{ success: boolean }, { phoneNumber: string }>({
       query: ({ phoneNumber }) => ({
-        url: 'https://oa.kg/api/auth/sms/send/',
+        url: '/api/auth/sms/send/',
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ phoneNumber }).toString(),
@@ -23,7 +23,7 @@ export const api = createApi({
     }),
     updateCurrentUser: builder.mutation<UserMeResponse, UserMeUpdateRequest>({
       query: (body) => ({
-        url: 'https://oa.kg/api/users/me/',
+        url: '/api/users/me/',
         method: 'PUT',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(body as Record<string, string>).toString(),
@@ -32,7 +32,7 @@ export const api = createApi({
     }),
     patchCurrentUser: builder.mutation<UserMeResponse, UserMeUpdateRequest>({
       query: (body) => ({
-        url: 'https://oa.kg/api/users/me/',
+        url: '/api/users/me/',
         method: 'PATCH',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(body as Record<string, string>).toString(),
@@ -55,7 +55,7 @@ export const api = createApi({
             });
 
         return {
-          url: 'https://oa.kg/api/auth/sms/verify/',
+          url: '/api/auth/sms/verify/',
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: pattern.toString(),
@@ -64,7 +64,7 @@ export const api = createApi({
     }),
     getCurrentUser: builder.query<UserMeResponse, void>({
       query: () => ({
-        url: 'https://oa.kg/api/users/me',
+        url: '/api/users/me/',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
@@ -72,7 +72,7 @@ export const api = createApi({
     }),
     getPolicies: builder.query<Policy[], void>({
       query: () => ({
-        url: 'https://oa.kg/api/policies/me',
+        url: '/api/policies/me',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
@@ -83,7 +83,7 @@ export const api = createApi({
         formData.append('frontImage', frontImage);
         formData.append('backImage', backImage);
         return {
-          url: 'https://oa.kg/api/ocr2/',
+          url: '/api/ocr2/',
           method: 'POST',
           body: formData,
           params: { documentType },
@@ -92,21 +92,21 @@ export const api = createApi({
     }),
     getReferrals: builder.query<Referral[], void>({
       query: () => ({
-        url: 'https://oa.kg/api/referrals/me/',
+        url: '/api/referrals/me/',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
     createIdentification: builder.mutation<unknown, FormData>({
       query: (body) => ({
-        url: 'https://oa.kg/api/users/identification/',
+        url: '/api/users/identification/',
         method: 'POST',
         body,
       }),
     }),
     getOperations: builder.query<Operation[], { type?: string } | void>({
       query: (params) => {
-        const url = 'https://oa.kg/api/operations/me/';
+        const url = '/api/operations/me/';
         if (params && params.type) {
           return {
             url,
@@ -140,7 +140,7 @@ export const api = createApi({
           formData.append('requisiteImage', requisiteImage);
         }
         return {
-          url: 'https://oa.kg/api/withdrawal-requests/',
+          url: '/api/finance/payout-requests/',
           method: 'POST',
           headers: {
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -152,14 +152,14 @@ export const api = createApi({
     }),
     getWithdrawalMethods: builder.query<WithdrawalMethod[], void>({
       query: () => ({
-        url: 'https://oa.kg/api/withdrawal-methods/',
+        url: '/api/finance/withdrawal-methods/',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
     getQaList: builder.query<QaItem[], { type: string }>({
       query: ({ type }) => ({
-        url: 'https://oa.kg/api/qa/',
+        url: '/api/qa/',
         method: 'GET',
         params: { type },
         headers: { 'Content-Type': 'application/json' },
@@ -170,12 +170,12 @@ export const api = createApi({
         id: number;
         fullName?: string;
         phoneNumber: string;
-        referralId: number;
+        referralId?: number;
       },
       number
     >({
       query: (id) => ({
-        url: `https://oa.kg/api/users/${id}/name/`,
+        url: `/api/users/${id}/name/`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
