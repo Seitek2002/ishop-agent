@@ -62,7 +62,7 @@ const AuthVerify: React.FC = () => {
   const [verifySms, { isLoading: isVerifying }] = useVerifySmsMutation();
 
   useEffect(() => {
-    if (smsCode.length === 6 && !isVerifying) {
+    if (smsCode.length === 5 && !isVerifying) {
       handleVerify();
     }
     // eslint-disable-next-line
@@ -142,7 +142,7 @@ const AuthVerify: React.FC = () => {
               <h2>{t('input_sms_label')}</h2>
               <IonInputOtp
                 ref={otpInputRef}
-                length={6}
+                length={5}
                 value={smsCode}
                 onIonInput={(e) => setSmsCode(e.detail.value!)}
               />
