@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  IonContent,
-  IonText,
-  IonInputOtp,
-  IonPage,
-} from '@ionic/react';
+import { IonContent, IonText, IonInputOtp, IonPage } from '@ionic/react';
 import GaIonButton from '../../components/GaIonButton';
-import { useVerifySmsMutation, useUsersNameRetrieveQuery } from '../../services/api';
+import {
+  useVerifySmsMutation,
+  useUsersNameRetrieveQuery,
+} from '../../services/api';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './style.scss';
