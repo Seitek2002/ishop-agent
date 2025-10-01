@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {
-  IonCard,
-  IonCardContent,
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonInput,
-  IonPage,
-  IonRow,
-} from '@ionic/react';
-import GaIonButton from '../../components/GaIonButton';
+import { IonIcon, IonInput, IonPage } from '@ionic/react';
 import { searchOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import GaIonButton from '../../components/GaIonButton';
+import MyCard from '../../components/MyCard/MyCard';
+import { useTexts } from '../../context/TextsContext';
+
 import { useLazyGetPoliciesQuery, Policy } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
+
 import car from '../../assets/car.svg';
 import './style.scss';
-import { useTexts } from '../../context/TextsContext';
 
 const Osago: React.FC = () => {
   const history = useHistory();
@@ -26,24 +20,6 @@ const Osago: React.FC = () => {
   const localData = localStorage.getItem('policies') || '[]';
 
   const [data, setData] = useState<Policy[]>(JSON.parse(localData));
-  const usersInfo = JSON.parse(
-    localStorage.getItem('usersInfo') ||
-      `{
-        "id": 0,
-        "firstName": "",
-        "lastName": "",
-        "middleName": "",
-        "phoneNumber": "+996",
-        "balance": "0",
-        "totalIncome": "0",
-        "osagoIncome": "0",
-        "agentsIncome": "0",
-        "osagoCount": 0,
-        "agentsCount": 0,
-        "referralLink": "string",
-        "identificationStatus": "not_submitted"
-      }`
-  );
   const [getPolicies] = useLazyGetPoliciesQuery();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -53,7 +29,7 @@ const Osago: React.FC = () => {
       oldData: localData,
       newData: res,
       localKey: 'policies',
-      setState: (data: any) => setData(Array.isArray(data) ? data : []),
+      setState: (data) => setData(Array.isArray(data) ? data : []),
     });
   };
 
@@ -84,30 +60,7 @@ const Osago: React.FC = () => {
           />
         </div>
 
-        <IonCard className='card-block osago-card'>
-          <IonCardContent>
-            <h3 className='card-section-title'>{t('section_policies')}</h3>
-            <IonGrid>
-              <IonRow>
-                <IonCol size='6'>
-                  <div className='stat-card'>
-                    <p className='stat-title'>{t('policies_count_label')}</p>
-                    <p className='stat-number'>{usersInfo.osagoCount}</p>
-                    <p className='stat-info'>{t('stat_desc_1')}</p>
-                  </div>
-                </IonCol>
-                <IonCol size='6'>
-                  <div className='stat-card'>
-                    <p className='stat-title'>{t('income_label')}</p>
-                    <p className='stat-number'>{+usersInfo?.agentsIncome}</p>
-                    {/* <p className='stat-info'>В среднем зарабатывают {+usersInfo.averageAgentsIncome} сом</p> */}
-                    <p className='stat-info'>{t('stat_desc_2')}</p>
-                  </div>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonCardContent>
-        </IonCard>
+        <MyCard />
 
         {/* Список полисов */}
         {filtered.map((policy) => (

@@ -67,17 +67,23 @@ const IncomeCard: FC<IncomeCardProps> = ({ onWithdraw }) => {
 
   return (
     <IonCard color='white' className='incomeCard' mode='md'>
+      <div className='incomeCard-wrapper'></div>
       <IonCardHeader>
         <IonCardSubtitle className='incomeCard-subtitle'>
           {t('balance_label')}
         </IonCardSubtitle>
         <IonCardTitle className='incomeCard-title'>
-          <b>{+data?.balance} {t('balance_currency') || 'сом'}</b>
+          <b>
+            {+data?.balance} {t('balance_currency') || 'сом'}
+          </b>
         </IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <span className='incomeCard-muted'>
-          {t('total_income_label').replace('1 400 000', `${+data?.totalIncome}` || '0')}
+          {t('total_income_label').replace(
+            '1 400 000',
+            `${+data?.totalIncome}` || '0'
+          )}
         </span>
       </IonCardContent>
       <IonCardContent>

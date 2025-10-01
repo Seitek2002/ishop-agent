@@ -6,16 +6,43 @@
   position: relative;
   overflow: hidden;
 
+  &-wrapper {
+    overflow: hidden;
+    position: absolute;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+
+    &::before {
+      position: absolute;
+      right: -120px;
+      top: -120px;
+      content: '';
+      background: #552878;
+      width: 160px;
+      height: 160px;
+      z-index: 1;
+      border-radius: 100%;
+      border: 35px solid #673e85;
+    }
+  }
+
   &-subtitle {
     font-size: 20px;
+    position: relative;
+    z-index: 10;
   }
 
   &-title {
     font-size: 36px;
+    position: relative;
+    z-index: 10;
   }
 
   &-muted {
     color: rgba(255, 255, 255, 0.85);
+    position: relative;
+    z-index: 10;
   }
 
   &-button {

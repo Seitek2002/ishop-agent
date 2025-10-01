@@ -15,10 +15,10 @@ import {
 import { useLocation } from 'react-router-dom';
 import {
   homeOutline,
-  shieldCheckmarkOutline,
   peopleOutline,
   cardOutline,
   personOutline,
+  storefrontOutline
 } from 'ionicons/icons';
 
 import Osago from './pages/Osago/Osago';
@@ -181,9 +181,9 @@ const AppTabs: React.FC = () => {
             <IonTabButton tab='osago' href='/a/osago'>
               <IonIcon
                 aria-hidden='true'
-                {...(osagoIconUrl ? { src: shieldCheckmarkOutline } : { icon: shieldCheckmarkOutline })}
+                {...(osagoIconUrl ? { src: storefrontOutline } : { icon: storefrontOutline })}
               />
-              <IonLabel>ОСАГО</IonLabel>
+              <IonLabel>Магазины</IonLabel>
             </IonTabButton>
             <IonTabButton tab='agents' href='/a/agents'>
               <IonIcon
