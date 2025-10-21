@@ -3,7 +3,7 @@ import { IonIcon, IonInput, IonPage } from '@ionic/react';
 import { searchOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import GaIonButton from '../../components/GaIonButton';
-import MyCard from '../../components/MyCard/MyCard';
+// import MyCard from '../../components/MyCard/MyCard';
 import { useTexts } from '../../context/TextsContext';
 
 import {
@@ -64,7 +64,7 @@ const Osago: React.FC = () => {
           />
         </div>
 
-        <MyCard />
+        {/* <MyCard /> */}
 
         {/* Список полисов */}
         {filtered.map((organization) => (
@@ -96,10 +96,7 @@ const Osago: React.FC = () => {
                 color='primary'
                 className='organization-btn'
                 style={{ padding: 0 }}
-                href={organization.slug}
-                target='_blank'
-                rel='noopener noreferrer'
-                gaEventName='osago_download_pdf'
+                onClick={() => history.push('/a/referral')}
               >
                 {t('btn_download')}
               </GaIonButton>
@@ -109,12 +106,12 @@ const Osago: React.FC = () => {
                 color='primary'
                 className='organization-btn'
                 style={{ padding: 0 }}
-                href={organization.slug}
+                href={'ishop.kg/' + organization.slug}
                 target='_blank'
                 rel='noopener noreferrer'
                 gaEventName='osago_download_pdf'
               >
-                {t('btn_download')}
+                {t('read_more')}
               </GaIonButton>
             </div>
           </div>
