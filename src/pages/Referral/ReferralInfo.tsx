@@ -1,15 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IonButton, IonPage } from '@ionic/react';
+
 import referralLogo from '../../assets/onboarding/bakaiIshnersu.png';
 import { useLazyGetCurrentUserQuery } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
+import { useTexts } from '../../context/TextsContext';
 
 import car from '../../assets/car.svg';
 import share from '../../assets/share.svg';
 import warning from '../../assets/warning.svg';
 
 import './style.scss';
-import { useTexts } from '../../context/TextsContext';
 
 const ReferralInfo: FC = () => {
   const { t } = useTexts();
@@ -69,7 +70,11 @@ const ReferralInfo: FC = () => {
           className='primary-btn'
           onClick={() => {
             if (data?.authReferralLink) {
-              window.location.href = data.authReferralLink;
+              window.location.href =
+                'https://ishop.kg' +
+                localStorage.getItem('referral') +
+                '?ref=' +
+                data.id;
             }
           }}
         >
@@ -86,7 +91,7 @@ const ReferralInfo: FC = () => {
               navigator.share({
                 title: t('share_osago_link_title'),
                 text: t('share_osago_link_text'),
-                url: data.authReferralLink,
+                url: localStorage.getItem('referral') + '?ref=' + data.id,
               });
             } else {
               alert('Web Share API не поддерживается на этом устройстве');
@@ -105,7 +110,7 @@ const ReferralInfo: FC = () => {
         <div className='referral-hint'>
           <img src={warning} alt='warning' />
           <span style={{ fontSize: 12, color: '#7B7F88' }}>
-            Все полисы ОСАГО выписывается ОАО «Бакай Иншуренс» на основе
+            Все полисы ОСАГО выписывается ОАО «Бакай Страхование» на основе
             лицензии №03, номер бланка №0003 серии «ОС» от 05.02.24 г..
           </span>
         </div>

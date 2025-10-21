@@ -12,7 +12,7 @@ import {
 } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 
-import car from '../../assets/car.svg';
+// import car from '../../assets/car.svg';
 import './style.scss';
 
 const Osago: React.FC = () => {
@@ -47,6 +47,11 @@ const Osago: React.FC = () => {
     const term = searchTerm.toLowerCase();
     return organization.companyName.includes(term);
   });
+
+  const handleReferral = (slug: string) => {
+    history.push('/a/referral');
+    localStorage.setItem('referral', slug);
+  };
 
   return (
     <IonPage className='osago-page'>
@@ -96,7 +101,7 @@ const Osago: React.FC = () => {
                 color='primary'
                 className='organization-btn'
                 style={{ padding: 0 }}
-                onClick={() => history.push('/a/referral')}
+                onClick={() => handleReferral(organization.slug)}
               >
                 {t('btn_download')}
               </GaIonButton>
@@ -106,7 +111,7 @@ const Osago: React.FC = () => {
                 color='primary'
                 className='organization-btn'
                 style={{ padding: 0 }}
-                href={'ishop.kg/' + organization.slug}
+                href={'https://ishop.kg/' + organization.slug}
                 target='_blank'
                 rel='noopener noreferrer'
                 gaEventName='osago_download_pdf'
@@ -118,7 +123,7 @@ const Osago: React.FC = () => {
         ))}
 
         {/* Кнопка оформить ОСАГО */}
-        <div className='bottom-button-wrapper'>
+        {/* <div className='bottom-button-wrapper'>
           <GaIonButton
             expand='block'
             className='primary-btn'
@@ -130,7 +135,7 @@ const Osago: React.FC = () => {
           </GaIonButton>
 
           <div className='earn-percent'>{t('earn_10_percent')}</div>
-        </div>
+        </div> */}
       </div>
     </IonPage>
   );
