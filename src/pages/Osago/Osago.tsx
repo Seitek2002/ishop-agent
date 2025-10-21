@@ -6,7 +6,10 @@ import GaIonButton from '../../components/GaIonButton';
 import MyCard from '../../components/MyCard/MyCard';
 import { useTexts } from '../../context/TextsContext';
 
-import { useLazyGetPoliciesQuery, Policy } from '../../services/api';
+import {
+  OrganizationListItem,
+  useLazyGetOrganizationsQuery,
+} from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 
 import car from '../../assets/car.svg';
@@ -16,11 +19,12 @@ const Osago: React.FC = () => {
   const history = useHistory();
   const { t } = useTexts();
 
-  // Паттерн localData + data + getPolicies + handleFetch + useEffect
   const localData = localStorage.getItem('policies') || '[]';
 
-  const [data, setData] = useState<Policy[]>(JSON.parse(localData));
-  const [getPolicies] = useLazyGetPoliciesQuery();
+  const [data, setData] = useState<OrganizationListItem[]>(
+    JSON.parse(localData)
+  );
+  const [getPolicies] = useLazyGetOrganizationsQuery();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleFetch = async () => {
@@ -39,9 +43,9 @@ const Osago: React.FC = () => {
   }, []);
 
   // Фильтрация по поиску
-  const filtered = data.filter((policy) => {
+  const filtered = data.filter((organization) => {
     const term = searchTerm.toLowerCase();
-    return policy.fullName.toLowerCase().includes(term);
+    return organization.companyName.includes(term);
   });
 
   return (
@@ -63,36 +67,49 @@ const Osago: React.FC = () => {
         <MyCard />
 
         {/* Список полисов */}
-        {filtered.map((policy) => (
-          <div className='policy-card' key={policy.id}>
-            <div className='policy-name'>{policy.fullName}</div>
-            <div className='policy-number'>№{policy.id}</div>
-            <div className='policy-info'>
-              <span className='label'>{t('vehicle_info').split(':')[0]}:</span>
-              <span className='until'> {policy.vehicle || '—'}</span>
-            </div>
-            <div className='policy-info'>
-              <span className='label'>{t('issue_date').split(':')[0]}:</span>
-              <span className='until'> {policy.startDate}</span>
-            </div>
-            <div className='policy-status'>
-              <span className='active'>{t('active_until').split(':')[0]}</span>
-              <span className='until'>
-                {' '}
-                {t('active_until').includes(':')
-                  ? t('active_until').split(':')[1]
-                  : 'до'}{' '}
-                {policy.endDate}
+        {filtered.map((organization) => (
+          <div className='organization-card' key={organization.companyName}>
+            <div className='organization-header'>
+              <img src={organization.logo || ''} alt='' />
+              <span className='organization-name'>
+                {organization.companyName}
               </span>
             </div>
-            <div className='policy-buttons'>
+            <p className='organization-description'>
+              {organization.description}
+            </p>
+            <div className='organization-earns-title'>Вознаграждения:</div>
+            <div className='organization-earns'>
+              <div className='organization-earn'>
+                <div className='organization-percent'>15%</div>
+                <div>от продаж</div>
+              </div>
+              <div className='organization-earn'>
+                <div className='organization-percent'>15%</div>
+                <div>от друзей</div>
+              </div>
+            </div>
+            <div className='organization-buttons'>
               <GaIonButton
                 expand='block'
                 fill='outline'
                 color='primary'
-                className='policy-btn'
+                className='organization-btn'
                 style={{ padding: 0 }}
-                href={policy.policyPdfUrl}
+                href={organization.slug}
+                target='_blank'
+                rel='noopener noreferrer'
+                gaEventName='osago_download_pdf'
+              >
+                {t('btn_download')}
+              </GaIonButton>
+              <GaIonButton
+                expand='block'
+                fill='outline'
+                color='primary'
+                className='organization-btn'
+                style={{ padding: 0 }}
+                href={organization.slug}
                 target='_blank'
                 rel='noopener noreferrer'
                 gaEventName='osago_download_pdf'

@@ -165,6 +165,13 @@ export const api = createApi({
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
+    getOrganizations: builder.query<OrganizationListItem[], void>({
+      query: () => ({
+        url: '/api/organizations/',
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    }),
     usersNameRetrieve: builder.query<
       {
         id: number;
@@ -215,6 +222,8 @@ export const {
   useGetPageTextsQuery,
   useLazyGetPageTextsQuery,
   useGetQaListQuery,
+  useGetOrganizationsQuery,
+  useLazyGetOrganizationsQuery,
   useUsersNameRetrieveQuery,
   useCreateWithdrawalRequestMutation,
 } = api;
@@ -314,4 +323,11 @@ export interface QaItem {
   type: 'osago' | 'nc' | 'vzr' | 'faq';
   question: string;
   answer: string;
+}
+
+export interface OrganizationListItem {
+  companyName: string;
+  slug: string;
+  logo: string | null;
+  description: string;
 }

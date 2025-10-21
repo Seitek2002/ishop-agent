@@ -41,7 +41,7 @@
   flex: 1;
 }
 
-.policy-card {
+.organization-card {
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(56, 128, 255, 0.08);
@@ -49,58 +49,57 @@
   margin-bottom: 32px;
 }
 
-.policy-name {
+.organization-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  img {
+    border-radius: 100%;
+  }
+}
+
+.organization-name {
   font-weight: 700;
   font-size: 20px;
-  margin-bottom: 8px;
 }
 
-.policy-number {
-  color: #b0b0b0;
-  font-size: 14px;
-  margin: 12px 0;
+.organization-earns-title {
+  color: #7B7F88;
 }
 
-.policy-info {
-  color: #888;
-  font-size: 15px;
-  margin: 12px 0;
-
-  .label {
-    font-weight: 500;
-  }
-  .until {
-    color: #000;
-    font-weight: 400;
-  }
+.organization-earn {
+  text-align: center;
+  font-size: 12px;
 }
 
-.policy-status {
-  font-size: 15px;
-  margin-bottom: 14px;
-
-  .active {
-    color: #1abc9c;
-    font-weight: 600;
-  }
-
-  .until {
-    color: #000;
-    font-weight: 400;
-  }
+.organization-percent {
+  color: #854C9D;
+  font-weight: 700;
+  font-size: 20px;
 }
 
-.policy-buttons {
+.organization-earns {
   display: flex;
-  gap: 12px;
+  justify-content: space-evenly;
+  margin-top: 12px;
+}
 
-  .policy-btn {
-    flex: 1;
-    font-weight: 500;
-    --padding-top: 14px;
-    --padding-bottom: 14px;
-    --border-radius: 12px;
-  }
+.organization-btn {
+  border-radius: 22px !important;
+}
+
+.organization-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.organization-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .bottom-button-wrapper {
