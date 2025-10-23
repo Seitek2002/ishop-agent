@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonButton, IonIcon, IonPage } from '@ionic/react';
 import { personAddOutline, informationCircleOutline } from 'ionicons/icons';
-import inviteLogo from '../assets//onboarding/inviteLogo.png';
+import inviteLogo from '../assets//onboarding/image-2.png';
 
 import { useLazyGetCurrentUserQuery } from '../services/api';
 import { useEffect, useState } from 'react';
@@ -60,7 +60,7 @@ const InviteFriend: React.FC = () => {
           src={inviteLogo}
           alt='Invite'
           style={{
-            width: '100%',
+            width: '80%',
             margin: '0 auto 18px auto',
             display: 'block',
           }}
