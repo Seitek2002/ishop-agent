@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IonIcon, IonInput, IonPage } from '@ionic/react';
 import { searchOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
-import GaIonButton from '../../components/GaIonButton';
 // import MyCard from '../../components/MyCard/MyCard';
 import { useTexts } from '../../context/TextsContext';
 
@@ -14,9 +12,9 @@ import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 
 // import car from '../../assets/car.svg';
 import './style.scss';
+import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 
 const Osago: React.FC = () => {
-  const history = useHistory();
   const { t } = useTexts();
 
   const localData = localStorage.getItem('policies') || '[]';
@@ -48,11 +46,6 @@ const Osago: React.FC = () => {
     return organization.companyName.includes(term);
   });
 
-  const handleReferral = (slug: string) => {
-    history.push('/a/referral');
-    localStorage.setItem('referral', slug);
-  };
-
   return (
     <IonPage className='osago-page'>
       <div>
@@ -73,53 +66,7 @@ const Osago: React.FC = () => {
 
         {/* Список полисов */}
         {filtered.map((organization) => (
-          <div className='organization-card' key={organization.companyName}>
-            <div className='organization-header'>
-              <img src={organization.logo || ''} alt='' />
-              <span className='organization-name'>
-                {organization.companyName}
-              </span>
-            </div>
-            <p className='organization-description'>
-              {organization.description}
-            </p>
-            <div className='organization-earns-title'>Вознаграждения:</div>
-            <div className='organization-earns'>
-              <div className='organization-earn'>
-                <div className='organization-percent'>15%</div>
-                <div>от продаж</div>
-              </div>
-              <div className='organization-earn'>
-                <div className='organization-percent'>15%</div>
-                <div>от друзей</div>
-              </div>
-            </div>
-            <div className='organization-buttons'>
-              <GaIonButton
-                expand='block'
-                fill='outline'
-                color='primary'
-                className='organization-btn'
-                style={{ padding: 0 }}
-                onClick={() => handleReferral(organization.slug)}
-              >
-                {t('btn_download')}
-              </GaIonButton>
-              <GaIonButton
-                expand='block'
-                fill='outline'
-                color='primary'
-                className='organization-btn'
-                style={{ padding: 0 }}
-                href={'https://ishop.kg/' + organization.slug}
-                target='_blank'
-                rel='noopener noreferrer'
-                gaEventName='osago_download_pdf'
-              >
-                {t('read_more')}
-              </GaIonButton>
-            </div>
-          </div>
+          <OrganizationCard key={organization.companyName} organization={organization} />
         ))}
 
         {/* Кнопка оформить ОСАГО */}
