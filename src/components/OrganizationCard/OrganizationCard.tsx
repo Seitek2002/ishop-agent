@@ -5,9 +5,10 @@ import GaIonButton from '../GaIonButton';
 import { OrganizationListItem } from '../../services/api';
 import { useTexts } from '../../context/TextsContext';
 
-const OrganizationCard: FC<{ organization: OrganizationListItem }> = ({
-  organization,
-}) => {
+const OrganizationCard: FC<{
+  organization: OrganizationListItem;
+  buttons?: boolean;
+}> = ({ organization, buttons = true }) => {
   const history = useHistory();
   const { t } = useTexts();
 
@@ -15,6 +16,7 @@ const OrganizationCard: FC<{ organization: OrganizationListItem }> = ({
     history.push('/a/referral');
     localStorage.setItem('referral', slug);
   };
+
   return (
     <div className='organization-card' key={organization.companyName}>
       <div className='organization-header'>
@@ -33,31 +35,33 @@ const OrganizationCard: FC<{ organization: OrganizationListItem }> = ({
           <div>от друзей</div>
         </div>
       </div>
-      <div className='organization-buttons'>
-        <GaIonButton
-          expand='block'
-          fill='outline'
-          color='primary'
-          className='organization-btn'
-          style={{ padding: 0 }}
-          onClick={() => handleReferral(organization.slug)}
-        >
-          {t('btn_download')}
-        </GaIonButton>
-        <GaIonButton
-          expand='block'
-          fill='outline'
-          color='primary'
-          className='organization-btn'
-          style={{ padding: 0 }}
-          href={'https://ishop.kg/' + organization.slug}
-          target='_blank'
-          rel='noopener noreferrer'
-          gaEventName='osago_download_pdf'
-        >
-          {t('read_more')}
-        </GaIonButton>
-      </div>
+      {buttons && (
+        <div className='organization-buttons'>
+          <GaIonButton
+            expand='block'
+            fill='outline'
+            color='primary'
+            className='organization-btn'
+            style={{ padding: 0 }}
+            onClick={() => handleReferral(organization.slug)}
+          >
+            {t('btn_download')}
+          </GaIonButton>
+          <GaIonButton
+            expand='block'
+            fill='outline'
+            color='primary'
+            className='organization-btn'
+            style={{ padding: 0 }}
+            href={'https://ishop.kg/' + organization.slug}
+            target='_blank'
+            rel='noopener noreferrer'
+            gaEventName='osago_download_pdf'
+          >
+            {t('read_more')}
+          </GaIonButton>
+        </div>
+      )}
     </div>
   );
 };

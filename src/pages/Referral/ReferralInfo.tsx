@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { IonButton, IonPage } from '@ionic/react';
 
 import referralLogo from '../../assets/onboarding/bakaiIshnersu.png';
-import { useLazyGetCurrentUserQuery } from '../../services/api';
+import { OrganizationListItem, useLazyGetCurrentUserQuery } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 import { useTexts } from '../../context/TextsContext';
 
@@ -11,6 +11,7 @@ import share from '../../assets/share.svg';
 import warning from '../../assets/warning.svg';
 
 import './style.scss';
+import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 
 const ReferralInfo: FC = () => {
   const { t } = useTexts();
@@ -31,6 +32,7 @@ const ReferralInfo: FC = () => {
       "referralLink": "string",
       "identificationStatus": "not_submitted"
     }`;
+    const localOrganization: OrganizationListItem[] = JSON.parse(localStorage.getItem('policies') || '[]');
 
   const [data, setData] = useState(JSON.parse(localData));
 
@@ -53,13 +55,16 @@ const ReferralInfo: FC = () => {
   return (
     <IonPage className='referral-page'>
       <div className='referral-card'>
-        <img
+        {/* <img
           src={referralLogo}
           alt={t('company_name')}
           className='referral-logo'
         />
         <div className='referral-description'>{t('company_description')}</div>
-        <div className='referral-title'>{t('referral_title')}</div>
+        <div className='referral-title'>{t('referral_title')}</div> */}
+        <div style={{ textAlign: 'left' }}>
+          <OrganizationCard buttons={false} organization={localOrganization.filter(item => item.slug === localStorage.getItem('referral'))[0]} />
+        </div>
         <div className='referral-code'>{data?.id}</div>
         <p className='earn-percent-2' style={{ fontSize: '14px' }}>
           {t('earn_10_percent')}
