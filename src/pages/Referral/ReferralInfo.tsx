@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { IonButton, IonPage } from '@ionic/react';
 
-import referralLogo from '../../assets/onboarding/bakaiIshnersu.png';
 import { OrganizationListItem, useLazyGetCurrentUserQuery } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 import { useTexts } from '../../context/TextsContext';
