@@ -42,10 +42,10 @@ const Home: FC = () => {
           <IonIcon slot='start' icon={helpCircleOutline} />
           {t('btn_help')}
         </GaIonButton>
-        <span style={{ fontSize: 12, color: '#7B7F88', marginTop: 8 }}>
+        {/* <span style={{ fontSize: 12, color: '#7B7F88', marginTop: 8 }}>
           Все полисы ОСАГО выписывается ОАО «Бакай Иншуренс» на основе лицензии
           №03, номер бланка №0003 серии «ОС» от 05.02.24 г..
-        </span>
+        </span> */}
       </div>
     </IonPage>
   );

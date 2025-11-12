@@ -11,3 +11,22 @@
 .onboarding-sms {
     font-size: 14px;
 }
+
+/* Ensure checkbox labels wrap on small screens */
+ion-item {
+  --inner-padding-end: 0;
+}
+
+ion-item ion-checkbox.onboarding-checkbox {
+  width: 100%;
+  align-items: flex-start; /* multi-line label aligns from top */
+}
+
+ion-item ion-checkbox.onboarding-checkbox::part(label) {
+  white-space: normal;        /* allow wrapping */
+  overflow-wrap: anywhere;    /* break long words/URLs if needed */
+  word-break: break-word;
+  text-overflow: clip;
+  display: block;             /* occupy available width for wrapping */
+  line-height: 1.2;
+}

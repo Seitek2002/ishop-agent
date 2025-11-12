@@ -19,7 +19,7 @@ import { useGetCurrentUserQuery } from '../../services/api';
 import { useTexts } from '../../context/TextsContext';
 
 import avatar from '../../assets/avatar-default.svg';
-import helpBuoy from '../../assets/helpBuoyFilled.svg';
+// import helpBuoy from '../../assets/helpBuoyFilled.svg';
 import helpReferral from '../../assets/helpReferral.svg';
 import helpQuestion from '../../assets/helpQuestionFilled.svg';
 
@@ -136,7 +136,7 @@ const Profile: React.FC = () => {
           </span>
         </div>
         <div className='profile-actions'>
-          <div
+          {/* <div
             className='profile-action'
             onClick={() => navigate.push('/a/instruction')}
           >
@@ -155,7 +155,7 @@ const Profile: React.FC = () => {
               icon={chevronForwardOutline}
               className='profile-action__arrow'
             />
-          </div>
+          </div> */}
           <a
             className='profile-action profile-action--referral'
             href='/a/ПУБЛИЧНАЯ ОФЕРТА для субагентов.pdf'
