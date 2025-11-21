@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { IonButton, IonPage } from '@ionic/react';
+import { IonButton, IonPage, IonToast } from '@ionic/react';
 
 import {
   OrganizationListItem,
@@ -39,6 +39,10 @@ const ReferralInfo: FC = () => {
   );
 
   const [data, setData] = useState(JSON.parse(localData));
+  const [copied, setCopied] = useState(false);
+  const shareUrl = `https://ishop.kg/${
+    localStorage.getItem('referral') || ''
+  }?ref=${data?.id ?? ''}`;
 
   const [getUserInfo] = useLazyGetCurrentUserQuery();
 
@@ -80,7 +84,54 @@ const ReferralInfo: FC = () => {
             }
           />
         </div>
-        <div className='referral-code'>{data?.id}</div>
+
+        <div
+          className='referral-code'
+          style={{
+            fontSize: '20px',
+            border: '1px solid #ccc',
+            padding: '10px',
+            cursor: 'pointer',
+            userSelect: 'text',
+            marginBottom: 12,
+          }}
+          role='button'
+          tabIndex={0}
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(shareUrl);
+              setCopied(true);
+            } catch {
+              // Fallback: create temporary textarea
+              try {
+                const ta = document.createElement('textarea');
+                ta.value = shareUrl;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                setCopied(true);
+              } catch (e) {
+                console.warn('Fallback copy failed', e);
+              }
+            }
+          }}
+          onKeyDown={async (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              try {
+                await navigator.clipboard.writeText(shareUrl);
+                setCopied(true);
+              } catch (e) {
+                console.warn('Clipboard write failed', e);
+              }
+            }
+          }}
+        >
+          {shareUrl}
+        </div>
         <p className='earn-percent-2' style={{ fontSize: '14px' }}>
           {t('earn_10_percent')}
         </p>
@@ -100,6 +151,7 @@ const ReferralInfo: FC = () => {
             }
           }}
         >
+          <img src={share} alt='' />
           {t('btn_share')}
         </IonButton>
 
@@ -124,6 +176,13 @@ const ReferralInfo: FC = () => {
           <span>{t('referral_instructions')}</span>
         </div>
       </div>
+      <IonToast
+        isOpen={copied}
+        message='Ссылка скопирована'
+        duration={1500}
+        position='top'
+        onDidDismiss={() => setCopied(false)}
+      />
     </IonPage>
   );
 };

@@ -6,6 +6,7 @@ import {
   IonText,
   IonInput,
   IonPage,
+  IonToast,
 } from '@ionic/react';
 import GaIonButton from '../../components/GaIonButton';
 import {
@@ -41,10 +42,10 @@ const Auth: React.FC = () => {
     try {
       const tokenObj = JSON.parse(localStorage.getItem('access') || '{}');
       if (tokenObj.access) {
-        history.replace('/a/home');
+        history.replace('/a/osago');
       }
-    } catch (e) {
-      // ignore JSON parse error
+    } catch {
+      /* ignore JSON parse error */
     }
   }, []);
 
@@ -59,9 +60,10 @@ const Auth: React.FC = () => {
     }
     return 0;
   });
-  const [agree, setAgree] = useState(false);
-  const [referralAgree, setReferralAgree] = useState(false);
+  const [agree, setAgree] = useState(true);
   const [error, setError] = useState('');
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const phoneInputRef = useRef<HTMLIonInputElement>(null);
@@ -81,6 +83,16 @@ const Auth: React.FC = () => {
 
   const handleSendSms = async () => {
     setError('');
+    // Validate inputs (button is always clickable)
+    const problems: string[] = [];
+    if (!phone || phone.length < 9) problems.push('введите номер телефона');
+    if (!agree) problems.push('подтвердите согласие с условиями');
+    if (problems.length) {
+      setToastMsg('Пожалуйста, ' + problems.join(' и ') + '.');
+      setToastOpen(true);
+      try { if (navigator.vibrate) navigator.vibrate(50); } catch { /* ignore */ }
+      return;
+    }
     const num = '+996' + phone;
     try {
       await sendSms({ phoneNumber: num }).unwrap();
@@ -198,13 +210,7 @@ const Auth: React.FC = () => {
               )}
               <GaIonButton
                 expand='block'
-                disabled={
-                  !phone ||
-                  !agree ||
-                  !referralAgree ||
-                  phone.length < 9 ||
-                  isSending
-                }
+                disabled={isSending}
                 onClick={handleSendSms}
                 style={{ marginTop: 24 }}
                 className='primary-btn'
@@ -221,60 +227,50 @@ const Auth: React.FC = () => {
                   onIonChange={(e) => setAgree(e.detail.checked)}
                   labelPlacement='end'
                 >
-                  {getFile('agree_with_terms') ? (
-                    <a
-                      href={getFile('agree_with_terms')}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      style={{
-                        textDecoration: 'underline',
-                        color: '#1976d2',
-                        marginLeft: 4,
-                        whiteSpace: 'break-spaces',
-                      }}
-                    >
-                      {t('agree_with_terms')}
-                    </a>
-                  ) : (
-                    <span style={{ color: '#888', marginLeft: 4 }}>
-                      {t('agree_with_terms') ||
-                        'оферты OA.KG (файл недоступен)'}
-                    </span>
-                  )}
-                </IonCheckbox>
-              </IonItem>
-              <IonItem>
-                <IonCheckbox
-                  className='onboarding-checkbox'
-                  checked={referralAgree}
-                  onIonChange={(e) => setReferralAgree(e.detail.checked)}
-                  labelPlacement='end'
-                >
-                  {getFile('agree_with_promotion') ? (
-                    <a
-                      href={getFile('agree_with_promotion')}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      style={{
-                        textDecoration: 'underline',
-                        color: '#1976d2',
-                        marginLeft: 4,
-                        whiteSpace: 'break-spaces',
-                      }}
-                    >
-                      {t('agree_with_promotion')}
-                    </a>
-                  ) : (
-                    <span style={{ color: '#888', marginLeft: 4 }}>
-                      {t('agree_with_promotion') ||
-                        'условиями участия в реферальной акции (файл недоступен)'}
-                    </span>
-                  )}
+                  <span className='onboarding-subtitle' style={{ marginLeft: 4 }}>
+                    Я принимаю{' '}
+                    {getFile('agree_with_terms') ? (
+                      <a
+                        href={getFile('agree_with_terms')}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        style={{ textDecoration: 'underline', color: '#1976d2' }}
+                      >
+                        {t('agree_with_terms')}
+                      </a>
+                    ) : (
+                      <span style={{ color: '#888' }}>
+                        {t('agree_with_terms') || 'оферту OA.KG (файл недоступен)'}
+                      </span>
+                    )}
+                    {' '}и{' '}
+                    {getFile('agree_with_promotion') ? (
+                      <a
+                        href={getFile('agree_with_promotion')}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        style={{ textDecoration: 'underline', color: '#1976d2' }}
+                      >
+                        {t('agree_with_promotion')}
+                      </a>
+                    ) : (
+                      <span style={{ color: '#888' }}>
+                        {t('agree_with_promotion') || 'условия участия в реферальной акции (файл недоступен)'}
+                      </span>
+                    )}
+                  </span>
                 </IonCheckbox>
               </IonItem>
             </div>
           </div>
         </div>
+        <IonToast
+          isOpen={toastOpen}
+          message={toastMsg || 'Заполните номер телефона и подтвердите согласие с условиями'}
+          duration={2000}
+          position='top'
+          onDidDismiss={() => setToastOpen(false)}
+        />
       </IonContent>
     </IonPage>
   );
