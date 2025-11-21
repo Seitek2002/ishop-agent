@@ -89,22 +89,6 @@ const ReferralInfo: FC = () => {
           expand='block'
           className='primary-btn'
           onClick={() => {
-            window.location.href =
-              'https://ishop.kg/' +
-              localStorage.getItem('referral') +
-              '?ref=' +
-              data.id;
-          }}
-        >
-          <img src={car} alt='car' />
-          {t('btn_issue_other')}
-        </IonButton>
-
-        <IonButton
-          expand='block'
-          fill='outline'
-          className='referral-btn'
-          onClick={() => {
             if (navigator.share) {
               navigator.share({
                 title: t('share_osago_link_title'),
@@ -116,21 +100,28 @@ const ReferralInfo: FC = () => {
             }
           }}
         >
-          <img src={share} alt='share' />
           {t('btn_share')}
+        </IonButton>
+
+        <IonButton
+          expand='block'
+          className='referral-btn'
+          fill='outline'
+          onClick={() => {
+            window.location.href =
+              'https://ishop.kg/' +
+              localStorage.getItem('referral') +
+              '?ref=' +
+              data.id;
+          }}
+        >
+          <img src={car} alt='car' />
+          {t('btn_issue_other')}
         </IonButton>
 
         <div className='referral-hint'>
           <img src={warning} alt='warning' />
           <span>{t('referral_instructions')}</span>
-        </div>
-
-        <div className='referral-hint'>
-          <img src={warning} alt='warning' />
-          <span style={{ fontSize: 12, color: '#7B7F88' }}>
-            Все полисы ОСАГО выписывается ОАО «Бакай Страхование» на основе
-            лицензии №03, номер бланка №0003 серии «ОС» от 05.02.24 г..
-          </span>
         </div>
       </div>
     </IonPage>

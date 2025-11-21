@@ -27,11 +27,11 @@ const OrganizationCard: FC<{
       <div className='organization-earns-title'>Вознаграждения:</div>
       <div className='organization-earns'>
         <div className='organization-earn'>
-          <div className='organization-percent'>15%</div>
+          <div className='organization-percent'>10%</div>
           <div>от продаж</div>
         </div>
         <div className='organization-earn'>
-          <div className='organization-percent'>15%</div>
+          <div className='organization-percent'>5%</div>
           <div>от друзей</div>
         </div>
       </div>

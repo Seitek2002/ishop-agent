@@ -158,62 +158,6 @@ const Auth: React.FC = () => {
                   }}
                 />
               </div>
-              <IonItem style={{ width: '100%' }}>
-                <IonCheckbox
-                  className='onboarding-checkbox'
-                  checked={agree}
-                  onIonChange={(e) => setAgree(e.detail.checked)}
-                  labelPlacement='end'
-                >
-                  {getFile('agree_with_terms') ? (
-                    <a
-                      href={getFile('agree_with_terms')}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      style={{
-                        textDecoration: 'underline',
-                        color: '#1976d2',
-                        marginLeft: 4,
-                        whiteSpace: 'break-spaces',
-                      }}
-                    >
-                      {t('agree_with_terms')}
-                    </a>
-                  ) : (
-                    <span style={{ color: '#888', marginLeft: 4 }}>
-                      {t('agree_with_terms') || 'оферты OA.KG (файл недоступен)'}
-                    </span>
-                  )}
-                </IonCheckbox>
-              </IonItem>
-              <IonItem>
-                <IonCheckbox
-                  className='onboarding-checkbox'
-                  checked={referralAgree}
-                  onIonChange={(e) => setReferralAgree(e.detail.checked)}
-                  labelPlacement='end'
-                >
-                  {getFile('agree_with_promotion') ? (
-                    <a
-                      href={getFile('agree_with_promotion')}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      style={{
-                        textDecoration: 'underline',
-                        color: '#1976d2',
-                        marginLeft: 4,
-                        whiteSpace: 'break-spaces',
-                      }}
-                    >
-                      {t('agree_with_promotion')}
-                    </a>
-                  ) : (
-                    <span style={{ color: '#888', marginLeft: 4 }}>
-                      {t('agree_with_promotion') || 'условиями участия в реферальной акции (файл недоступен)'}
-                    </span>
-                  )}
-                </IonCheckbox>
-              </IonItem>
               {isSending ? (
                 <p className='onboarding-sms'>{t('sms_disclaimer')}</p>
               ) : (
@@ -254,7 +198,13 @@ const Auth: React.FC = () => {
               )}
               <GaIonButton
                 expand='block'
-                disabled={!phone || !agree || !referralAgree || phone.length < 9 || isSending}
+                disabled={
+                  !phone ||
+                  !agree ||
+                  !referralAgree ||
+                  phone.length < 9 ||
+                  isSending
+                }
                 onClick={handleSendSms}
                 style={{ marginTop: 24 }}
                 className='primary-btn'
@@ -264,6 +214,64 @@ const Auth: React.FC = () => {
                   ? t('sending') || 'Отправка...'
                   : t('cta_start_earning_1')}
               </GaIonButton>
+              <IonItem style={{ width: '100%' }}>
+                <IonCheckbox
+                  className='onboarding-checkbox'
+                  checked={agree}
+                  onIonChange={(e) => setAgree(e.detail.checked)}
+                  labelPlacement='end'
+                >
+                  {getFile('agree_with_terms') ? (
+                    <a
+                      href={getFile('agree_with_terms')}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      style={{
+                        textDecoration: 'underline',
+                        color: '#1976d2',
+                        marginLeft: 4,
+                        whiteSpace: 'break-spaces',
+                      }}
+                    >
+                      {t('agree_with_terms')}
+                    </a>
+                  ) : (
+                    <span style={{ color: '#888', marginLeft: 4 }}>
+                      {t('agree_with_terms') ||
+                        'оферты OA.KG (файл недоступен)'}
+                    </span>
+                  )}
+                </IonCheckbox>
+              </IonItem>
+              <IonItem>
+                <IonCheckbox
+                  className='onboarding-checkbox'
+                  checked={referralAgree}
+                  onIonChange={(e) => setReferralAgree(e.detail.checked)}
+                  labelPlacement='end'
+                >
+                  {getFile('agree_with_promotion') ? (
+                    <a
+                      href={getFile('agree_with_promotion')}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      style={{
+                        textDecoration: 'underline',
+                        color: '#1976d2',
+                        marginLeft: 4,
+                        whiteSpace: 'break-spaces',
+                      }}
+                    >
+                      {t('agree_with_promotion')}
+                    </a>
+                  ) : (
+                    <span style={{ color: '#888', marginLeft: 4 }}>
+                      {t('agree_with_promotion') ||
+                        'условиями участия в реферальной акции (файл недоступен)'}
+                    </span>
+                  )}
+                </IonCheckbox>
+              </IonItem>
             </div>
           </div>
         </div>

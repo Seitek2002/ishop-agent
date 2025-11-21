@@ -7,7 +7,6 @@ import SwiperCore from 'swiper';
 
 import img1 from '../../assets/onboarding/image-1.png';
 import img2 from '../../assets/onboarding/image-2.png';
-import img3 from '../../assets/onboarding/image-3.png';
 
 import 'swiper/css';
 import '../../components/OnboardingModal.css'
@@ -27,12 +26,6 @@ const slideKeys = [
     titleKey: 'promo_title_2',
     subtitleKey: 'bonus_5_percent',
     extraKey: null,
-  },
-  {
-    image: img3,
-    titleKey: 'promo_title_3',
-    subtitleKey: 'license',
-    extraKey: null, // Можно добавить отдельный ключ, если появится в API
   },
 ];
 
@@ -61,12 +54,8 @@ const Onboarding: React.FC = () => {
   );
 
   const handleStart = () => {
-    if (currentSlide < slideKeys.length - 1) {
-      swiperRef.current?.slideNext();
-    } else {
-      localStorage.setItem('onboardingSeen', 'true');
-      history.push('/a/auth');
-    }
+    localStorage.setItem('onboardingSeen', 'true');
+    history.push('/a/auth');
   };
 
   return (
