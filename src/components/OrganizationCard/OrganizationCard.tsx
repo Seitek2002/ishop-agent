@@ -39,7 +39,7 @@ const OrganizationCard: FC<{
         <div className='organization-buttons'>
           <GaIonButton
             expand='block'
-            fill='outline'
+            fill='solid'
             color='primary'
             className='organization-btn'
             style={{ padding: 0 }}
