@@ -8,7 +8,7 @@ import GaIonButton from '../../components/GaIonButton';
 import { helpCircleOutline } from 'ionicons/icons';
 import IncomeCard from '../../components/IncomeCard/IncomeCard';
 import TeamCard from '../../components/TeamCard/TeamCard';
-import MyCard from '../../components/MyCard/MyCard';
+// import MyCard from '../../components/MyCard/MyCard';
 
 import './styles.scss';
 
@@ -21,7 +21,7 @@ const Home: FC = () => {
         {/* Баланс */}
         <IncomeCard />
 
-        <MyCard showButton={true} />
+        {/* <MyCard showButton={true} /> */}
 
         {/* Моя команда */}
         <TeamCard showButton={true} />

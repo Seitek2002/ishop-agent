@@ -1,7 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { IonButton, IonPage } from '@ionic/react';
 
-import { OrganizationListItem, useLazyGetCurrentUserQuery } from '../../services/api';
+import {
+  OrganizationListItem,
+  useLazyGetCurrentUserQuery,
+} from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 import { useTexts } from '../../context/TextsContext';
 
@@ -31,7 +34,9 @@ const ReferralInfo: FC = () => {
       "referralLink": "string",
       "identificationStatus": "not_submitted"
     }`;
-    const localOrganization: OrganizationListItem[] = JSON.parse(localStorage.getItem('policies') || '[]');
+  const localOrganization: OrganizationListItem[] = JSON.parse(
+    localStorage.getItem('policies') || '[]'
+  );
 
   const [data, setData] = useState(JSON.parse(localData));
 
@@ -51,6 +56,10 @@ const ReferralInfo: FC = () => {
     handleFetch();
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <IonPage className='referral-page'>
       <div className='referral-card'>
@@ -62,7 +71,14 @@ const ReferralInfo: FC = () => {
         <div className='referral-description'>{t('company_description')}</div>
         <div className='referral-title'>{t('referral_title')}</div> */}
         <div style={{ textAlign: 'left' }}>
-          <OrganizationCard buttons={false} organization={localOrganization.filter(item => item.slug === localStorage.getItem('referral'))[0]} />
+          <OrganizationCard
+            buttons={false}
+            organization={
+              localOrganization.filter(
+                (item) => item.slug === localStorage.getItem('referral')
+              )[0]
+            }
+          />
         </div>
         <div className='referral-code'>{data?.id}</div>
         <p className='earn-percent-2' style={{ fontSize: '14px' }}>
@@ -73,13 +89,11 @@ const ReferralInfo: FC = () => {
           expand='block'
           className='primary-btn'
           onClick={() => {
-            if (data?.authReferralLink) {
-              window.location.href =
-                'https://ishop.kg' +
-                localStorage.getItem('referral') +
-                '?ref=' +
-                data.id;
-            }
+            window.location.href =
+              'https://ishop.kg/' +
+              localStorage.getItem('referral') +
+              '?ref=' +
+              data.id;
           }}
         >
           <img src={car} alt='car' />
