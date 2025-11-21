@@ -18,12 +18,12 @@ const OrganizationCard: FC<{
   };
 
   return (
-    <div className='organization-card' key={organization.companyName}>
+    <div className='organization-card' key={organization?.companyName}>
       <div className='organization-header'>
-        <img src={organization.logo || ''} alt='' />
-        <span className='organization-name'>{organization.companyName}</span>
+        <img src={organization?.logo || ''} alt='' />
+        <span className='organization-name'>{organization?.companyName}</span>
       </div>
-      <p className='organization-description'>{organization.description}</p>
+      <p className='organization-description'>{organization?.description}</p>
       <div className='organization-earns-title'>Вознаграждения:</div>
       <div className='organization-earns'>
         <div className='organization-earn'>
@@ -43,7 +43,7 @@ const OrganizationCard: FC<{
             color='primary'
             className='organization-btn'
             style={{ padding: 0 }}
-            onClick={() => handleReferral(organization.slug)}
+            onClick={() => handleReferral(organization?.slug)}
           >
             {t('btn_download')}
           </GaIonButton>
@@ -53,7 +53,7 @@ const OrganizationCard: FC<{
             color='primary'
             className='organization-btn'
             style={{ padding: 0 }}
-            href={'https://ishop.kg/' + organization.slug}
+            href={'https://ishop.kg/' + organization?.slug}
             target='_blank'
             rel='noopener noreferrer'
             gaEventName='osago_download_pdf'
