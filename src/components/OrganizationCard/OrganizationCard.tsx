@@ -42,7 +42,7 @@ const OrganizationCard: FC<{
             fill='solid'
             color='primary'
             className='organization-btn'
-            style={{ padding: 0 }}
+            style={{ padding: 0, width: '70%' }}
             onClick={() => handleReferral(organization?.slug)}
           >
             {t('btn_download')}

@@ -68,18 +68,12 @@ const InviteFriend: React.FC = () => {
         <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 10 }}>
           {t('promo_title_2')}
         </div>
-        <div style={{ color: '#1abc9c', fontSize: 16, marginBottom: 22 }}>
+        <div className='earn-percent-2' style={{ color: '#1abc9c', fontSize: 16, marginBottom: 22 }}>
           {t('bonus_5_percent')}
         </div>
         <IonButton
           expand='block'
           className='primary-btn'
-          style={{
-            fontWeight: 500,
-            borderRadius: 12,
-            marginBottom: 18,
-            fontSize: 17,
-          }}
           onClick={() => {
             const link = data?.referralLink || '';
             if (navigator.share) {
