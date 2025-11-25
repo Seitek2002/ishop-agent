@@ -146,7 +146,7 @@ const ReferralInfo: FC = () => {
               navigator.share({
                 title: t('share_osago_link_title'),
                 text: t('share_osago_link_text'),
-                url: 'auth/' + data.id,
+                url: shareUrl,
               });
             } else {
               alert('Web Share API не поддерживается на этом устройстве');
