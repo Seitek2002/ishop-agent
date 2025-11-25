@@ -105,12 +105,11 @@ const Onboarding: React.FC = () => {
           </Swiper>
           {renderPagination()}
         </div>
-        <div style={{ background: 'white', width: '100%', paddingBottom: '40px' }}>
+        <div className='onboarding-actions'>
           <GaIonButton
             expand='block'
             className='primary-btn'
             onClick={handleStart}
-            style={{ marginTop: 32, fontSize: 16 }}
             gaEventName='onboarding_start'
           >
             {t('cta_start_earning_1')}

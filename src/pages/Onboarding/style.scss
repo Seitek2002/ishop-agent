@@ -1,9 +1,6 @@
 .onboarding-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0 24px;
+  
+  padding: 0 24px calc(140px + env(safe-area-inset-bottom));
 
   p {
     color: #1cbe93;
@@ -17,4 +14,15 @@
   align-items: center;
   margin: 16px 0 0 0;
   gap: 8px;
+}
+
+.onboarding-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 1000;
+  background: #fff;
+  padding: 12px 24px calc(12px + env(safe-area-inset-bottom));
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
 }
