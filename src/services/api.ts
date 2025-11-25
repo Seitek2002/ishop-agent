@@ -90,6 +90,17 @@ export const api = createApi({
         };
       },
     }),
+    detectNumber: builder.mutation<unknown, { frame: Blob | File }>({
+      query: ({ frame }) => {
+        const formData = new FormData();
+        formData.append('frame', frame);
+        return {
+          url: '/api/detect-number/',
+          method: 'POST',
+          body: formData,
+        };
+      },
+    }),
     getReferrals: builder.query<Referral[], void>({
       query: () => ({
         url: '/api/referrals/me/',
@@ -212,6 +223,7 @@ export const {
   useGetPoliciesQuery,
   useLazyGetPoliciesQuery,
   useOcrCreateMutation,
+  useDetectNumberMutation,
   useCreateIdentificationMutation,
   useGetReferralsQuery,
   useLazyGetReferralsQuery,
