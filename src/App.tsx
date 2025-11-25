@@ -70,7 +70,7 @@ setupIonicReact();
 const AppTabs: React.FC = () => {
   const location = useLocation();
   const hideTabBar =
-    location.pathname === '/a/onboarding' || location.pathname === '/a/auth';
+    location.pathname.startsWith('/a/onboarding') || location.pathname.startsWith('/a/auth');
 
   // Глобальный редирект на Onboarding при первом заходе
   React.useEffect(() => {
@@ -78,6 +78,14 @@ const AppTabs: React.FC = () => {
       localStorage.getItem('onboardingSeen') !== 'true' &&
       location.pathname !== '/a/onboarding'
     ) {
+      // Сохраняем целевой путь (например, /a/auth/3) чтобы вернуться к нему после онбординга
+      const currentPath =
+        location.pathname + (location.search || '') + (location.hash || '');
+      try {
+        localStorage.setItem('postOnboardingRedirect', currentPath);
+      } catch {
+        /* ignore */
+      }
       window.location.replace('/a/onboarding');
     }
   }, [location.pathname]);

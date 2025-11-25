@@ -38,7 +38,13 @@ const Onboarding: React.FC = () => {
   // Redirect if onboarding was already seen
   React.useEffect(() => {
     if (localStorage.getItem('onboardingSeen') === 'true') {
-      history.replace('/a/auth');
+      const redirect = localStorage.getItem('postOnboardingRedirect');
+      if (redirect) {
+        localStorage.removeItem('postOnboardingRedirect');
+        history.replace(redirect);
+      } else {
+        history.replace('/a/auth');
+      }
     }
   }, [history]);
 
@@ -55,7 +61,13 @@ const Onboarding: React.FC = () => {
 
   const handleStart = () => {
     localStorage.setItem('onboardingSeen', 'true');
-    history.push('/a/auth');
+    const redirect = localStorage.getItem('postOnboardingRedirect');
+    if (redirect) {
+      localStorage.removeItem('postOnboardingRedirect');
+      history.replace(redirect);
+    } else {
+      history.push('/a/auth');
+    }
   };
 
   return (
@@ -119,7 +131,13 @@ const Onboarding: React.FC = () => {
             expand='block'
             onClick={() => {
               localStorage.setItem('onboardingSeen', 'true');
-              history.push('/a/auth');
+              const redirect = localStorage.getItem('postOnboardingRedirect');
+              if (redirect) {
+                localStorage.removeItem('postOnboardingRedirect');
+                history.replace(redirect);
+              } else {
+                history.push('/a/auth');
+              }
             }}
             gaEventName='onboarding_skip'
           >
