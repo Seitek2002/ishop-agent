@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IonContent, IonText, IonInputOtp, IonPage } from '@ionic/react';
 import GaIonButton from '../../components/GaIonButton';
-import {
-  useVerifySmsMutation,
-  useUsersNameRetrieveQuery,
-} from '../../services/api';
-import { skipToken } from '@reduxjs/toolkit/query';
+import { useVerifySmsMutation } from '../../services/api';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './style.scss';
 import { useTexts } from '../../context/TextsContext';
@@ -30,7 +26,7 @@ interface RouteParams {
 const AuthVerify: React.FC = () => {
   const { t } = useTexts();
   const history = useHistory();
-  const otpInputRef = useRef<any>(null);
+  const otpInputRef = useRef<HTMLElement | null>(null);
 
   // Get phone and referralId from route params or location state
   const params = useParams<RouteParams>();
@@ -38,9 +34,6 @@ const AuthVerify: React.FC = () => {
   const phone = params.phone || location.state?.phone || '';
   const referralId = params.referralId || location.state?.referralId;
 
-  const { data: referralData } = useUsersNameRetrieveQuery(
-    referralId ? Number(referralId) : skipToken
-  );
 
   const [smsCode, setSmsCode] = useState('');
   const [error, setError] = useState('');
@@ -68,7 +61,7 @@ const AuthVerify: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      otpInputRef.current?.setFocus?.();
+      (otpInputRef.current as unknown as { setFocus?: () => void } | null)?.setFocus?.();
     }, 300);
   }, []);
 
@@ -91,7 +84,7 @@ const AuthVerify: React.FC = () => {
       if (data.access) {
         localStorage.setItem('access', JSON.stringify(data));
       }
-      history.replace('/a/home');
+      history.replace('/a/osago');
     } catch (e: unknown) {
       if (isErrorWithData(e) && e.data) {
         setError(e.data.error || 'Ошибка проверки кода');
@@ -139,7 +132,7 @@ const AuthVerify: React.FC = () => {
             <div className='onboarding-form'>
               <h2>{t('input_sms_label')}</h2>
               <IonInputOtp
-                ref={otpInputRef}
+                ref={(el) => { otpInputRef.current = el as unknown as HTMLElement | null; }}
                 length={5}
                 value={smsCode}
                 onIonInput={(e) => setSmsCode(e.detail.value!)}
