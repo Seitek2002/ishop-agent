@@ -68,7 +68,7 @@ const MyCard: FC<IProps> = ({ showButton }) => {
             <IonCol size='6'>
               <div className='stat-card'>
                 <p className='stat-title'>{t('policies_count_label')}</p>
-                <p className='stat-number'>{data.osagoCount || 0}</p>
+                <p className='stat-number'>{data.salesCount || 0}</p>
                 <p className='stat-info'>{t('stat_desc_1')}</p>
               </div>
             </IonCol>
@@ -76,7 +76,7 @@ const MyCard: FC<IProps> = ({ showButton }) => {
               <div className='stat-card'>
                 <p className='stat-title'>{t('income_label')}</p>
                 <p className='stat-number'>
-                  {Math.floor(+data?.osagoIncome || 0)}
+                  {Math.floor(+data?.salesCount || 0)}
                 </p>
                 <p className='stat-info'>{t('stat_desc_2')}</p>
               </div>
