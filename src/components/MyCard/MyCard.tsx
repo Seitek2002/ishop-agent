@@ -76,7 +76,7 @@ const MyCard: FC<IProps> = ({ showButton }) => {
               <div className='stat-card'>
                 <p className='stat-title'>{t('income_label')}</p>
                 <p className='stat-number'>
-                  {Math.floor(+data?.salesCount || 0)}
+                  {Math.floor(+data?.salesIncome || 0)}
                 </p>
                 <p className='stat-info'>{t('stat_desc_2')}</p>
               </div>
