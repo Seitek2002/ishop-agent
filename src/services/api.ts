@@ -13,7 +13,7 @@ export const api = createApi({
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
-    sendSms: builder.mutation<{ success: boolean }, { phoneNumber: string }>({
+    sendSms: builder.mutation<PhoneNumber, PhoneNumber>({
       query: ({ phoneNumber }) => ({
         url: '/api/auth/sms/send/',
         method: 'POST',
@@ -39,8 +39,8 @@ export const api = createApi({
       }),
     }),
     verifySms: builder.mutation<
-      { access?: string; refresh?: string },
-      { phoneNumber: string; code: string; referralCode?: string }
+      VerifySmsResponse,
+      VerifyCode
     >({
       query: ({ phoneNumber, code, referralCode }) => {
         const pattern = referralCode
@@ -213,6 +213,18 @@ export interface PageTextsResponse {
   results: PageText[];
 }
 
+// OpenAPI-aligned auth types
+export interface PhoneNumber { phoneNumber: string }
+export interface VerifyCode { phoneNumber: string; code: string; referralCode?: string }
+// Some backends return tokens from sms/verify; keep optional fields for compatibility
+export interface VerifySmsResponse {
+  access?: string;
+  refresh?: string;
+  phoneNumber?: string;
+  code?: string;
+  referralCode?: string;
+}
+
 export const {
   useSendSmsMutation,
   useVerifySmsMutation,
@@ -247,19 +259,22 @@ export interface UserMeResponse {
   lastName: string;
   middleName: string;
   phoneNumber: string;
-  passportSelfie: string | null;
   balance: string;
   withdrawnTotal: string;
   totalIncome: string;
-  osagoIncome: string;
+  salesIncome: string;
   agentsIncome: string;
-  osagoCount: number;
-  agentsCount: number;
-  referralLink: string;
-  authReferralLink: string;
-  identificationStatus: string;
-  totalAgents: number;
-  averageAgentsIncome: string;
+  salesCount: string;
+  agentsCount: string;
+  identificationStatus: 'not_submitted' | 'pending' | 'approved';
+  // Backward-compat optional fields used in UI
+  passportSelfie?: string | null;
+  osagoIncome?: string;
+  osagoCount?: number;
+  referralLink?: string;
+  authReferralLink?: string;
+  totalAgents?: number;
+  averageAgentsIncome?: string;
 }
 
 export interface UserMeUpdateRequest {
@@ -341,5 +356,5 @@ export interface OrganizationListItem {
   companyName: string;
   slug: string;
   logo: string | null;
-  description: string;
+  description: string | null;
 }

@@ -38,8 +38,10 @@ const MyCard: FC<IProps> = ({ showButton }) => {
           "agentsCount": 0,
           "referralLink": "string",
           "identificationStatus": "not_submitted",
-          "averageAgentsIncome": "0"
-        }`;
+          "averageAgentsIncome": "0",
+          "salesCount": 0,
+          "salesIncome": 0
+      }`;
 
   const [data, setData] = useState(JSON.parse(localData));
 
