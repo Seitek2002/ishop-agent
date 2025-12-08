@@ -1,3 +1,9 @@
+body {
+  max-width: 700px;
+  margin: auto;
+  position: static;
+}
+
 .header {
   padding: 16px 24px;
   display: flex;
